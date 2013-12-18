@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Daniel Mizyrycki <daniel@dotcloud.com>
 Build-Depends: debhelper (>=9), git, golang, dh-golang (>= 1.1), dh-systemd,
  golang-pty-dev, golang-mux-dev, golang-context-dev,
+ libdevmapper-dev, libsqlite3-dev,
  python-sphinx (>= 1.0.7+dfsg), python-sphinxcontrib-httpdomain
 Standards-Version: 3.9.4
 Homepage: http://github.com/dotcloud/docker
@@ -12,7 +13,9 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/lxc-docker.git;a=s
 
 Package: lxc-docker
 Architecture: linux-any
-Depends: ${misc:Depends}, lxc
+Depends: ${misc:Depends}, lxc(>=0.8), bridge-utils, tar (>=1.2.6),
+ iproute2 (>=3.5), ca-certificates, iptables(>=1.4), git (>=1.7),
+ xz-utils (>=4.9), procps
 Built-Using: ${misc:Built-Using}
 Description: Linux container runtime
  Docker complements LXC with a high-level API which operates at the process

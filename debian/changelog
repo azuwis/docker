@@ -1,3 +1,9 @@
+lxc-docker (0.7.2-1) UNRELEASED; urgency=low
+
+  * New upstream release
+
+ -- Zhong Jianxin <azuwis@gmail.com>  Wed, 18 Dec 2013 06:54:26 +0000
+
 lxc-docker (0.5.3+ds1-1) unstable; urgency=low
 
   * Initial release (Closes: #706060)

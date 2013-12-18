@@ -9,10 +9,11 @@ export DH_GOPKG := github.com/dotcloud/docker
 
 # Set temporary build paths
 GO_PATH = $(CURDIR)/obj-`arch`-linux-gnu
-DOCKER_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/docker
+
+UPSTREAM_VERSION := $(shell dpkg-parsechangelog | grep Version: | cut -d" " -f2 | cut -d"-" -f1)
 
 override_dh_auto_build:
-	cd ${DOCKER_PATH}; GOPATH=${GO_PATH} CGO_ENABLED=0 go build -v -a
+	GOPATH=${GO_PATH}:$(CURDIR)/vendor DOCKER_GITCOMMIT=c8a853f ./hack/make.sh dynbinary
 	make -C docs html
 
 override_dh_auto_clean:
@@ -21,15 +22,16 @@ override_dh_auto_clean:
 
 override_dh_auto_install:
 	dh_auto_install
-	mkdir -p debian/lxc-docker/usr/bin
-	mv ${DOCKER_PATH}/docker debian/lxc-docker/usr/bin/lxc-docker
-	# The source of docker does not make a library, so dont ship it.
-	rm -rf debian/lxc-docker/usr/share/gocode
+	install -D $(CURDIR)/bundles/${UPSTREAM_VERSION}/dynbinary/docker-${UPSTREAM_VERSION} debian/lxc-docker/usr/bin/lxc-docker
+	install -D $(CURDIR)/bundles/${UPSTREAM_VERSION}/dynbinary/dockerinit-${UPSTREAM_VERSION} debian/lxc-docker/usr/lib/docker/dockerinit
 
 override_dh_auto_test: 
 
 override_dh_installchangelogs:
 	dh_installchangelogs CHANGELOG.md
+
+override_dh_sphinxdoc:
+	dh_sphixdoc || true
 
 %:
 	dh $@ --buildsystem=golang --with=golang,systemd,sphinxdoc
