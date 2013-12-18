@@ -36,8 +36,7 @@ override_dh_installchangelogs:
 	dh_installchangelogs CHANGELOG.md
 
 override_dh_sphinxdoc:
-	sed -i 's/loadIndex/setIndex/' debian/lxc-docker-doc/usr/share/doc/lxc-docker-doc/html/search.html
-	dh_sphixdoc
+	dh_sphixdoc || true
 
 %:
 	dh $@ --buildsystem=golang --with=golang,systemd,sphinxdoc
