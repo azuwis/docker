@@ -11,23 +11,21 @@ export DH_GOPKG := github.com/dotcloud/docker
 GO_PATH = $(CURDIR)/obj-`arch`-linux-gnu
 DOCKER_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/docker
 
+UPSTREAM_VERSION := $(shell dpkg-parsechangelog | grep Version: | cut -d" " -f2 | cut -d"-" -f1)
+
 override_dh_auto_build:
 	GOPATH=${GO_PATH} go get github.com/syndtr/gocapability/capability
-	./hack/make.sh dynbinary
-	exit 1
+	GOPATH=${GO_PATH} DOCKER_GITCOMMIT=c8a853f ./hack/make.sh dynbinary
 	make -C docs html
 
 override_dh_auto_clean:
 	rm -rvf docs/_build/
+	rm -vf debian/lxc-docker.install
 	dh_auto_clean
 
 override_dh_auto_install:
+	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.install.in >debian/lxc-docker.install
 	dh_auto_install
-	mkdir -p debian/lxc-docker/usr/bin
-	mv ${DOCKER_PATH}/docker debian/lxc-docker/usr/bin/lxc-docker
-	mv ${DOCKER_INIT_PATH}/dockerinit debian/lxc-docker/usr/bin/dockerinit
-	# The source of docker does not make a library, so dont ship it.
-	rm -rf debian/lxc-docker/usr/share/gocode
 
 override_dh_auto_test: 
 
