@@ -26,7 +26,7 @@ override_dh_auto_install:
 	dh_auto_install
 	mkdir -p debian/lxc-docker/usr/bin
 	mv ${DOCKER_PATH}/docker debian/lxc-docker/usr/bin/lxc-docker
-	mv ${DOCKER_INIT_PATH}/dockerinit debian/lxc-docker/usr/bin/lxc-dockerinit
+	mv ${DOCKER_INIT_PATH}/dockerinit debian/lxc-docker/usr/bin/dockerinit
 	# The source of docker does not make a library, so dont ship it.
 	rm -rf debian/lxc-docker/usr/share/gocode
 
