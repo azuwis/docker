@@ -13,7 +13,7 @@ DOCKER_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/docker
 DOCKER_INIT_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/dockerinit
 
 override_dh_auto_build:
-	GOPATH=${GO_PATH} go get github.com/syndtr/gocapability/capabilit
+	GOPATH=${GO_PATH} go get github.com/syndtr/gocapability/capability
 	cd ${DOCKER_PATH}; GOPATH=${GO_PATH} go build -v -a
 	cd ${DOCKER_INIT_PATH}; GOPATH=${GO_PATH} go build -v -a
 	make -C docs html
