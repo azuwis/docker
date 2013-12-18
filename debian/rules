@@ -10,12 +10,11 @@ export DH_GOPKG := github.com/dotcloud/docker
 # Set temporary build paths
 GO_PATH = $(CURDIR)/obj-`arch`-linux-gnu
 DOCKER_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/docker
-DOCKER_INIT_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/dockerinit
 
 override_dh_auto_build:
 	GOPATH=${GO_PATH} go get github.com/syndtr/gocapability/capability
-	cd ${DOCKER_PATH}; GOPATH=${GO_PATH} go build -v -a
-	cd ${DOCKER_INIT_PATH}; GOPATH=${GO_PATH} go build -v -a
+	./hack/make.sh dynbinary
+	exit 1
 	make -C docs html
 
 override_dh_auto_clean:
