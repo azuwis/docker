@@ -10,7 +10,7 @@
 # Description:          Linux container runtime
 ### END INIT INFO
 
-DOCKER=/usr/bin/docker-@UPSTREAM_VERSION@
+DOCKER=/usr/bin/docker
 
 # Check lxc-docker is present
 [ -x $DOCKER ] || (log_failure_msg "lxc-docker not present"; exit 1)
