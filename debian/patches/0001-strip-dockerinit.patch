@@ -1,0 +1,24 @@
+From: Zhong Jianxin <azuwis@gmail.com>
+Date: Thu, 19 Dec 2013 06:59:47 +0000
+Subject: strip dockerinit
+
+The sha1sum of `dockerinit` is hardcoded into `docker` binary and is
+checked at runtime. That causes the sha1sum of the installed file to be
+different from the value computed inside of the buildroot.
+---
+ hack/make/dynbinary |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/hack/make/dynbinary b/hack/make/dynbinary
+index 100c00e..8fbc45c 100644
+--- a/hack/make/dynbinary
++++ b/hack/make/dynbinary
+@@ -7,6 +7,8 @@ CGO_ENABLED=0 go build -a -o $DEST/dockerinit-$VERSION -ldflags "$LDFLAGS -d" $B
+ echo "Created binary: $DEST/dockerinit-$VERSION"
+ ln -sf dockerinit-$VERSION $DEST/dockerinit
+ 
++strip --remove-section=.comment --remove-section=.note $DEST/dockerinit-$VERSION
++
+ # sha1 our new dockerinit to ensure separate docker and dockerinit always run in a perfect pair compiled for one another
+ export DOCKER_INITSHA1="$(sha1sum $DEST/dockerinit-$VERSION | cut -d' ' -f1)"
+ # exported so that "dyntest" can easily access it later without recalculating it
