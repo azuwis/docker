@@ -23,8 +23,8 @@ override_dh_auto_clean:
 	dh_auto_clean
 
 override_dh_auto_install:
-	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.install.in >debian/lxc-docker.install
-	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.init.in >debian/lxc-docker.init
+	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/g debian/lxc-docker.install.in >debian/lxc-docker.install
+	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/g debian/lxc-docker.init.in >debian/lxc-docker.init
 	dh_auto_install
 
 override_dh_auto_test: 
