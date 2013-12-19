@@ -34,4 +34,4 @@ override_dh_sphinxdoc:
 	dh_sphixdoc || true
 
 %:
-	dh $@ --buildsystem=golang --with=golang,systemd,sphinxdoc
+	dh $@ --buildsystem=golang --with=golang,sphinxdoc
