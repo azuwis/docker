@@ -1,1 +1,2 @@
-bundles/@UPSTREAM_VERSION@/dynbinary/* usr/bin
+bundles/@UPSTREAM_VERSION@/dynbinary/docker-@UPSTREAM_VERSION@ usr/bin
+bundles/@UPSTREAM_VERSION@/dynbinary/dockerinit-@UPSTREAM_VERSION@ usr/libexec/docker

@@ -9,14 +9,12 @@ export DH_GOPKG := github.com/dotcloud/docker
 
 # Set temporary build paths
 GO_PATH = $(CURDIR)/obj-`arch`-linux-gnu
-DOCKER_PATH = obj-`arch`-linux-gnu/src/github.com/dotcloud/docker/docker
 
 UPSTREAM_VERSION := $(shell dpkg-parsechangelog | grep Version: | cut -d" " -f2 | cut -d"-" -f1)
 
 override_dh_auto_build:
-	#GOPATH=${GO_PATH} go get github.com/syndtr/gocapability/capability
-	GOPATH=./vendor DOCKER_GITCOMMIT=c8a853f ./hack/make.sh binary
-	#make -C docs html
+	GOPATH=${GO_PATH}:$(CURDIR)/vendor DOCKER_GITCOMMIT=c8a853f ./hack/make.sh dynbinary
+	make -C docs html
 
 override_dh_auto_clean:
 	rm -rvf docs/_build/
@@ -25,7 +23,7 @@ override_dh_auto_clean:
 	dh_auto_clean
 
 override_dh_auto_install:
-	#sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.install.in >debian/lxc-docker.install
+	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.install.in >debian/lxc-docker.install
 	sed 's/@UPSTREAM_VERSION@/'$(UPSTREAM_VERSION)/ debian/lxc-docker.init.in >debian/lxc-docker.init
 	dh_auto_install
 

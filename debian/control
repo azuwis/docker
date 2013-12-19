@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Daniel Mizyrycki <daniel@dotcloud.com>
 Build-Depends: debhelper (>=9), git, golang, dh-golang (>= 1.1), dh-systemd,
  golang-pty-dev, golang-mux-dev, golang-context-dev,
- golang-go.net-dev, golang-gosqlite-dev, libdevmapper-dev,
+ libdevmapper-dev,
  python-sphinx (>= 1.0.7+dfsg), python-sphinxcontrib-httpdomain
 Standards-Version: 3.9.4
 Homepage: http://github.com/dotcloud/docker
