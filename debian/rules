@@ -24,6 +24,8 @@ override_dh_auto_install:
 	dh_auto_install
 	install -D $(CURDIR)/bundles/${UPSTREAM_VERSION}/dynbinary/docker-${UPSTREAM_VERSION} debian/lxc-docker/usr/bin/lxc-docker
 	install -D $(CURDIR)/bundles/${UPSTREAM_VERSION}/dynbinary/dockerinit-${UPSTREAM_VERSION} debian/lxc-docker/usr/lib/docker/dockerinit
+	install -d debian/lxc-docker/usr/sbin
+	ln -s ../bin/lxc-docker debian/lxc-docker/usr/sbin/docker
 
 override_dh_auto_test: 
 
