@@ -1,3 +1,9 @@
+lxc-docker (0.7.2-1+build1) unstable; urgency=low
+
+  * debian/rules: Add /usr/sbin/docker symlink to /usr/bin/lxc-docker
+
+ -- Zhong Jianxin <azuwis@gmail.com>  Mon, 23 Dec 2013 10:57:49 +0800
+
 lxc-docker (0.7.2-1) unstable; urgency=low
 
   * New upstream release
